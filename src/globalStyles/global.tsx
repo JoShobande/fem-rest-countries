@@ -1,8 +1,10 @@
 import { createGlobalStyle } from "styled-components";
 
+interface themeProps{
+    mobile: string
+}
 
-const GlobalStyles = createGlobalStyle`
-    @import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;600;800&family=Open+Sans&display=swap'); 
+const GlobalStyles = createGlobalStyle<{theme: themeProps}>`
    *{
        box-sizing: border-box;
        margin: 0;
@@ -13,6 +15,9 @@ const GlobalStyles = createGlobalStyle`
     }
     h1{
         font-size: 20px;
+        @media(min-width: ${({ theme }) => theme?.mobile}){
+            font-size: 32px;
+        }
     }
     h2{
         font-size: 18px
