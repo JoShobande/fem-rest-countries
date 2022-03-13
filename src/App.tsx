@@ -3,13 +3,21 @@ import GlobalStyles from "./globalStyles/global";
 import Header from "./pages/components/header/header";
 import './app.css'
 import theme from './theme/theme'
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Home from "./pages/home/home";
 
 function App() {
   return (
     <ThemeProvider theme={theme}>
       <div>
         <GlobalStyles/>
-        <Header/>
+        <BrowserRouter>
+          <Header/>
+          <Routes>
+              <Route path='/' element={<Home/>}/>
+          </Routes>
+        </BrowserRouter>
+        
       </div>
     </ThemeProvider>
   );
