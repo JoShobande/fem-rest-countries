@@ -13,10 +13,20 @@ export const Container = styled.div`
 
 export const Flex = styled.div`
     
-    
-
-    @media(min-width: ${({ theme }) => theme?.mobile}){
+    @media(min-width: ${({ theme }) => theme?.mobile?.ipad}){
         display: flex;
         justify-content: space-between;
+    }
+`
+
+
+export const Grid = styled.div`
+    
+    @media(min-width: ${({ theme }) => theme?.mobile?.ipad}){
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        place-content: center;
+        grid-gap: 50px;
+        
     }
 `

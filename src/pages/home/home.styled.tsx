@@ -18,7 +18,7 @@ export const StyledActions = styled.div`
             color: #bab7b7;
         }
 
-        @media(min-width: ${({ theme }) => theme?.mobile}){
+        @media(min-width: ${({ theme }) => theme?.mobile?.ipad}){
             width: 500px;
         }
     }
@@ -29,8 +29,8 @@ export const StyledSelectbox = styled.div`
     font-size: 12px;
     padding: 15px;
     position: relative;
-
-    @media(min-width: ${({ theme }) => theme?.mobile}){
+    cursor: pointer;
+    @media(min-width: ${({ theme }) => theme?.mobile?.ipad}){
         width: 200px;
         margin-top: 30px;
     }
@@ -40,5 +40,67 @@ export const StyledSelectbox = styled.div`
         right: 10px;
         bottom: 15px;
     }
+`
+
+export const CountryCard = styled.div`
+    background-color: white;
+    box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.25);
+    height: auto;
+    margin-bottom: 50px;
+    margin-top: 50px;
+
+    @media(min-width: ${({ theme }) => theme?.mobile?.ipad}){
+       width: 300px;
+    }
+
+    img{
+        min-width: 100%;
+        height: 200px;
+        object-fit: cover;
+    }
+
+    p{
+        margin-bottom: 10px;
+        font-weight: 600;
+
+        span{
+            font-weight: normal;
+        }
+    }
+
+`
+
+export const CountryInfo = styled.div`
+    padding: 20px;
+    padding-bottom: 50px;
+`
+
+export const CountryName = styled.p`
+    font-weight: 800;
+    margin-bottom: 30px;
+    font-size: 24px;
+
+`
+
+export const RegionOptions = styled.div`
+    width: 165px;
+    margin-top: 5px;
+    padding: 10px;
+    position: absolute;
+    z-index: 10;
+    background-color: white;
+
+    @media(min-width: ${({ theme }) => theme?.mobile?.ipad}){
+        width: 200px;
+     }
+    ul{
+        list-style: none;
+        cursor: pointer;
+        li{
+            padding-top: 5px;
+            padding-bottom: 5px;
+        }
+    }
+
 `
 

@@ -6,7 +6,11 @@ const theme = {
         backgroundColor: 'hsl(0, 0%, 98%)',
         headerBackgroundColor: '#fff',
     },
-    mobile: '768px'
+    mobile:{
+        phone: '768px',
+        ipad: '912px'
+    }
+   
 }
 
 export default theme;
