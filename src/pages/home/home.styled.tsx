@@ -48,6 +48,7 @@ export const CountryCard = styled.div`
     height: auto;
     margin-bottom: 50px;
     margin-top: 50px;
+    cursor: pointer;
 
     @media(min-width: ${({ theme }) => theme?.mobile?.ipad}){
        width: 300px;
@@ -79,6 +80,7 @@ export const CountryName = styled.p`
     font-weight: 800;
     margin-bottom: 30px;
     font-size: 24px;
+    
 
 `
 

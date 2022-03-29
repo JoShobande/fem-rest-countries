@@ -1,9 +1,12 @@
-import { Container, Flex, Grid } from "../generalStyles/container.styled"
+import { Container, Flex, Grid } from "../styles/generalStyles/container.styled"
 import { CountryCard, CountryInfo, CountryName, RegionOptions, StyledActions, StyledSelectbox} from "./home.styled";
 import downArrow from '../../assets/down-arrow.png'
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
+
+    let navigate = useNavigate()
 
     const [post, setPost] = useState<any>()
     const [option, setOption] = useState('all')
@@ -43,12 +46,6 @@ const Home = () => {
         return response.json()
     }
 
-    // useEffect(()=>{
-    //     fetchRegions()
-    //     .then((region)=>{
-    //         console.log(region)
-    //     })
-    // },[])
    
     useEffect(()=>{
         if(countryName){
@@ -100,9 +97,9 @@ const Home = () => {
                                    regions.map((region, index)=>{
                                        return(
                                            <li 
-                                            key={index}
+                                            key={region}
                                             onClick={()=>{handleSetCurrentRegion(region)}}
-                                            data-testid='region-list'
+                                            data-testid={`region-list-${index}`}
                                            >
                                                {region}
                                            </li>
@@ -113,8 +110,7 @@ const Home = () => {
                             </ul>
                         </RegionOptions>
                     }
-               </StyledActions>
-           
+               </StyledActions> 
            </Flex>
 
            <Grid>
@@ -122,12 +118,12 @@ const Home = () => {
                 
                 post && post.map((item:any, index:any)=>{
                     return(  
-                    <CountryCard  key={index}>
+                    <CountryCard  key={index} onClick={()=>navigate(`/${item.name}`)}>
                         <img src={item.flag}   alt='alt'/>
                         <CountryInfo>
                             <CountryName data-testid={`country-item-${index}`}>{item.name}</CountryName>
                             <p>Popluation: <span>{item.population}</span></p>
-                            <p data-testid={`region-item-${index}`}>Region: <span>{item.region}</span></p>
+                            <p >Region: <span data-testid={`region-item-${index}`}>{item.region}</span></p>
                             <p>Capital: <span>{item.capital}</span></p>
                         </CountryInfo>
                         

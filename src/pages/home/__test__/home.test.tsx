@@ -24,11 +24,11 @@ const server = setupServer(
       )
     }),
 
-    rest.get('https://restcountries.com/v2/region/europe', (req, res, ctx) => {
+    rest.get('https://restcountries.com/v2/region/africa', (req, res, ctx) => {
       return res(
         ctx.status(200),
         ctx.json([{
-            region: 'Europe', 
+            region: 'Africa', 
         }]),
       )
     }),
@@ -77,10 +77,12 @@ test('should toggle region options', () => {
 
 test('It should render countries based filter option', async() => {
   render (<Home/>)
-  const regionList = await screen.getByTestId('region-list')
+  const selectElement = await screen.getByTestId('region-select')
+  fireEvent.click(selectElement)
+  const regionList = await screen.getByTestId("region-list-0")
   fireEvent.click(regionList)
   const regionElement = await screen.findByTestId('region-item-0')
-  expect(regionElement.innerHTML).toBe('Europe');   
+  expect(regionElement.innerHTML).toBe('Africa');   
 })
 
 
