@@ -1,13 +1,20 @@
 import { Container } from "../styles/generalStyles/container.styled"
 import { BackButton, BorderCountries, CountryDetails, CountryDetailsText, InfoContainer, OtherInfo } from "./details.styled"
 import back from '../../assets/left-arrow.png'
-import { useNavigate, useParams } from "react-router-dom"
+import { useLocation, useNavigate, useParams } from "react-router-dom"
 import { useEffect, useState } from "react"
 import { CountryName } from './details.styled'
+import {createBrowserHistory} from 'history'
+
 
 
 const Details = () => {
     let navigate = useNavigate()
+    let location = useLocation()
+    console.log(location)
+
+    let history = createBrowserHistory()
+    console.log(history.location)
     let {name} = useParams<{name: string}>()
 
     const [countryDetails, setCountryDetails] = useState('')
@@ -21,6 +28,8 @@ const Details = () => {
         }
         return response.json()
     }
+
+   
 
     useEffect(()=>{
         fetchCountry()

@@ -2,6 +2,8 @@ import {fireEvent, render, screen } from '@testing-library/react';
 import Home from '../home';
 import {rest} from 'msw'
 import { setupServer } from 'msw/node'
+import { BrowserRouter, Router, useLocation } from 'react-router-dom';
+import { createBrowserHistory} from 'history'
 
 
 
@@ -34,30 +36,40 @@ const server = setupServer(
     }),
 )
 
+const MockHome= () => {
+  const history = createBrowserHistory()
+  return(
+      <Router location={history.location} navigator={history} >
+        <Home/>   
+      </Router>
+  )
+}
+
+
 beforeAll(()=>server.listen())
 afterAll(()=>server.close())
 afterEach(()=>server.resetHandlers())
 
 test('should render input element', () => {
-    render(<Home />)
+    render(<MockHome />)
     const InputElement = screen.getByPlaceholderText('Search for a country...');
     expect(InputElement).toBeInTheDocument();
 });
 
 test('should render select element', () => {
-    render(<Home />)
+    render(<MockHome />)
     const selectElement = screen.getByTestId('region-select')
     expect(selectElement).toBeInTheDocument();
 });
 
 test('should render the first country', async () => {
-    render(<Home />)
+    render(<MockHome />)
     const countryElementName = await screen.findByTestId('country-item-0')
     expect(countryElementName).toBeInTheDocument();
 });
 
 test('It should render countries based on search keyword', async() => {
-    render (<Home/>)
+    render (<MockHome/>)
     const InputValue = screen.getByPlaceholderText('Search for a country...') as HTMLInputElement
     expect(InputValue.value).toBe('')
     fireEvent.change(InputValue, {target: {value: 'Austria'}})
@@ -66,7 +78,7 @@ test('It should render countries based on search keyword', async() => {
 })
 
 test('should toggle region options', () => {
-  render(<Home />)
+  render(<MockHome />)
   const selectElement = screen.getByTestId('region-select')
   fireEvent.click(selectElement)
   const optionElement = screen.getByTestId('options')
@@ -76,7 +88,7 @@ test('should toggle region options', () => {
 });
 
 test('It should render countries based filter option', async() => {
-  render (<Home/>)
+  render (<MockHome/>)
   const selectElement = await screen.getByTestId('region-select')
   fireEvent.click(selectElement)
   const regionList = await screen.getByTestId("region-list-0")
@@ -84,6 +96,14 @@ test('It should render countries based filter option', async() => {
   const regionElement = await screen.findByTestId('region-item-0')
   expect(regionElement.innerHTML).toBe('Africa');   
 })
+
+test("redirects to specific country page", async() => {
+  const history = createBrowserHistory();
+  render (<MockHome/>)
+  const  country = await screen.findByText("Afghanistan")
+  fireEvent.click(country)
+  expect(history.location.pathname).toBe("/Afghanistan");
+});
 
 
       

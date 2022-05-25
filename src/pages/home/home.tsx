@@ -2,11 +2,16 @@ import { Container, Flex, Grid } from "../styles/generalStyles/container.styled"
 import { CountryCard, CountryInfo, CountryName, RegionOptions, StyledActions, StyledSelectbox} from "./home.styled";
 import downArrow from '../../assets/down-arrow.png'
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import { createMemoryHistory } from "history";
 
 const Home = () => {
 
     let navigate = useNavigate()
+
+    let location = useLocation()
+
+    console.log(location)
 
     const [post, setPost] = useState<any>()
     const [option, setOption] = useState('all')
@@ -46,7 +51,9 @@ const Home = () => {
         return response.json()
     }
 
-   
+    const history = createMemoryHistory()
+    console.log(history.location)
+
     useEffect(()=>{
         if(countryName){
             setOption('name')
